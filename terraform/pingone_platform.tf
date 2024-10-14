@@ -208,6 +208,24 @@ EOT
   }
 }
 
+resource "pingone_application" "my_awesome_oidc_web_app" {
+  enabled                = true
+  environment_id         = pingone_environment.target_environment.id
+  hidden_from_app_portal = false
+  name                   = "my-awesome-oidc-web-app"
+  oidc_options = {
+    additional_refresh_token_replay_protection_enabled = true
+    device_polling_interval                            = 5
+    device_timeout                                     = 600
+    grant_types                                        = ["AUTHORIZATION_CODE"]
+    par_requirement                                    = "OPTIONAL"
+    par_timeout                                        = 60
+    pkce_enforcement                                   = "OPTIONAL"
+    response_types                                     = ["CODE"]
+    token_endpoint_auth_method                         = "CLIENT_SECRET_BASIC"
+    type                                               = "WEB_APP"
+  }
+}
 ##########################################################################
 # outputs.tf - (optional) Contains outputs from the resources created
 # @see https://developer.hashicorp.com/terraform/language/values/outputs
